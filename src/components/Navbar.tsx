@@ -1,6 +1,7 @@
-"use client";
+("use client");
 
 import * as React from "react";
+import { useState } from "react";
 import logo from "@/assets/logo-small.png";
 import { cn } from "@/lib/utils";
 import {
@@ -16,166 +17,131 @@ import {
 const components: { title: string; href: string; description: string }[] = [
 	{
 		title: "ceLLama",
-		href: "/cellama",
+		href: "/solutions/cellama",
 		description:
 			"An automated cell type annotation pipeline using local Large Language Models (LLMs).",
 	},
-	// {
-	// 	title: "",
-	// 	href: "/docs/primitives/hover-card",
-	// 	description:
-	// 		"For sighted users to preview content available behind a link.",
-	// },
-	// // {
-	// 	title: "Progress",
-	// 	href: "/docs/primitives/progress",
-	// 	description:
-	// 		"Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-	// },
-	// {
-	// 	title: "Scroll-area",
-	// 	href: "/docs/primitives/scroll-area",
-	// 	description: "Visually or semantically separates content.",
-	// },
-	// {
-	// 	title: "Tabs",
-	// 	href: "/docs/primitives/tabs",
-	// 	description:
-	// 		"A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-	// },
-	// {
-	// 	title: "Tooltip",
-	// 	href: "/docs/primitives/tooltip",
-	// 	description:
-	// 		"A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-	// },
 ];
 
 export function NavigationMenuDemo() {
+	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+	const [submenuOpen, setSubmenuOpen] = useState(false);
+	const toggleMobileMenu = () => {
+		setIsMobileMenuOpen(!isMobileMenuOpen);
+	};
+
 	return (
-		<>
-			<header className="sticky top-0 z-50 w-full border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-				<div className="container flex h-14 max-w-screen-2xl items-center">
-					<div className="mr-4 hidden md:flex">
-						<a href="/">
-							<img
-								src={logo}
-								alt="Logo"
-								style={{ width: "40px", height: "40px", marginRight: "10px" }}
-							/>
-						</a>
+		<header className="sticky top-0 z-50 w-full border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+			<div className="container flex h-14 max-w-screen-2xl items-center justify-between">
+				<a href="/">
+					<img
+						src={logo}
+						alt="Celvox Logo"
+						style={{ width: "40px", height: "40px" }}
+					/>
+				</a>
 
-						<NavigationMenu>
-							<NavigationMenuList>
-								<NavigationMenuItem>
-									<NavigationMenuLink asChild>
-										<NavigationMenuLink
-											className={navigationMenuTriggerStyle()}
-										>
-											<a href="/">Home</a>
-										</NavigationMenuLink>
-									</NavigationMenuLink>
-								</NavigationMenuItem>
+				{/* Mobile menu button */}
+				<button className="md:hidden" onClick={toggleMobileMenu}>
+					{isMobileMenuOpen ? "Close" : "Menu"}
+				</button>
 
-								<NavigationMenuItem>
-									<NavigationMenuLink asChild>
-										<NavigationMenuLink
-											className={navigationMenuTriggerStyle()}
-										>
-											<a href="/about">About</a>
-										</NavigationMenuLink>
-									</NavigationMenuLink>
-								</NavigationMenuItem>
-
-								{/* <NavigationMenuItem>
-					<NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
-					<NavigationMenuLink asChild></NavigationMenuLink> */}
-								{/* <NavigationMenuContent> */}
-								{/* <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-							<li className="row-span-3">
+				{/* Desktop menu */}
+				<nav className="hidden md:flex">
+					<NavigationMenu>
+						<NavigationMenuList>
+							<NavigationMenuItem>
 								<NavigationMenuLink asChild>
-									<a
-										className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-										href="/"
-									>
-										<div className="mb-2 mt-4 text-lg font-medium">
-											shadcn/ui
-										</div>
-										<p className="text-sm leading-tight text-muted-foreground">
-											Beautifully designed components built with Radix UI and
-											Tailwind CSS.
-										</p>
-									</a>
-								</NavigationMenuLink>
-							</li>
-							<ListItem href="/docs" title="Introduction">
-								Re-usable components built using Radix UI and Tailwind CSS.
-							</ListItem>
-							<ListItem href="/docs/installation" title="Installation">
-								How to install dependencies and structure your app.
-							</ListItem>
-							<ListItem href="/docs/onur" title="Installation">
-								This is a random try!
-							</ListItem>
-							<ListItem href="/docs/primitives/typography" title="Typography">
-								Styles for headings, paragraphs, lists...etc
-							</ListItem>
-						</ul> */}
-								{/* </NavigationMenuContent> */}
-								{/* </NavigationMenuItem> */}
-
-								{/* <NavigationMenuItem>
-							<NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
-							<NavigationMenuContent>
-								<NavigationMenuLink asChild>
-									<a
-										className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-										href="/"
-									>
-										<div className="mb-2 mt-4 text-lg font-medium">
-											shadcn/ui
-										</div>
-										<p className="text-sm leading-tight text-muted-foreground">
-											Beautifully designed components built with Radix UI and
-											Tailwind CSS.
-										</p>
-									</a>
-								</NavigationMenuLink>
-							</NavigationMenuContent>
-						</NavigationMenuItem> */}
-
-								<NavigationMenuItem>
-									<NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
-									<NavigationMenuContent>
-										<ul className="grid w-[200px] gap-3 p-4 md:w-[250px] md:grid-cols-1 lg:w-[300px] ">
-											{components.map((component) => (
-												<ListItem
-													key={component.title}
-													title={component.title}
-													href={component.href}
-												>
-													{component.description}
-												</ListItem>
-											))}
-										</ul>
-									</NavigationMenuContent>
-								</NavigationMenuItem>
-
-								<NavigationMenuItem>
-									<NavigationMenuLink asChild>
-										<NavigationMenuLink
-											className={navigationMenuTriggerStyle()}
-										>
-											<a href="/contact">Contact</a>
-										</NavigationMenuLink>
+									<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+										<a href="/">Home</a>
 									</NavigationMenuLink>
-								</NavigationMenuItem>
-							</NavigationMenuList>
-						</NavigationMenu>
+								</NavigationMenuLink>
+							</NavigationMenuItem>
+							<NavigationMenuItem>
+								<NavigationMenuLink asChild>
+									<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+										<a href="/about">About</a>
+									</NavigationMenuLink>
+								</NavigationMenuLink>
+							</NavigationMenuItem>
+
+							<NavigationMenuItem>
+								<NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
+								<NavigationMenuContent>
+									<ul className="grid w-[200px] gap-3 p-4 md:w-[250px] md:grid-cols-1 lg:w-[300px] ">
+										{components.map((component) => (
+											<ListItem
+												key={component.title}
+												title={component.title}
+												href={component.href}
+											>
+												{component.description}
+											</ListItem>
+										))}
+									</ul>
+								</NavigationMenuContent>
+							</NavigationMenuItem>
+							<NavigationMenuItem>
+								<NavigationMenuLink asChild>
+									<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+										<a href="/contact">Contact</a>
+									</NavigationMenuLink>
+								</NavigationMenuLink>
+							</NavigationMenuItem>
+						</NavigationMenuList>
+					</NavigationMenu>
+				</nav>
+
+				{/* Mobile menu */}
+				{isMobileMenuOpen && (
+					<div className="">
+						<div className="fixed inset-0 z-50 bg-background md:hidden">
+							<div className="p-4 bg-black text-neutral-400">
+								<button onClick={toggleMobileMenu} className="text-xl">
+									✕
+								</button>
+								<nav className="mt-8">
+									<ul className="space-y-4">
+										<li>
+											<a href="/" onClick={toggleMobileMenu}>
+												Home
+											</a>
+										</li>
+										<li>
+											<a href="/about" onClick={toggleMobileMenu}>
+												About
+											</a>
+										</li>
+										<li>
+											<button onClick={() => setSubmenuOpen(!submenuOpen)}>
+												Solutions
+											</button>
+											{submenuOpen && (
+												<ul className="ml-4 mt-2 space-y-2">
+													<li>
+														<a
+															href="/solution/scellama"
+															onClick={toggleMobileMenu}
+														>
+															| ceLLama
+														</a>
+													</li>
+												</ul>
+											)}
+										</li>
+										<li>
+											<a href="/contact" onClick={toggleMobileMenu}>
+												Contact
+											</a>
+										</li>
+									</ul>
+								</nav>
+							</div>
+						</div>
 					</div>
-				</div>
-			</header>
-		</>
+				)}
+			</div>
+		</header>
 	);
 }
 

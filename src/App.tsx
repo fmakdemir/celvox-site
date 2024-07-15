@@ -5,7 +5,7 @@ import { Home } from "@/pages/Home";
 import { About } from "@/pages/About";
 import { Solutions } from "@/pages/Solutions";
 import { Contact } from "@/pages/Contact";
-import { Cellama } from "@/pages/Cellama";
+import { Cellama } from "@/pages/solutions/Cellama";
 
 function App() {
 	return (
@@ -16,7 +16,7 @@ function App() {
 					<Route path="/about" element={<About />} />
 					<Route path="/solutions" element={<Solutions />} />
 					<Route path="/contact" element={<Contact />} />
-					<Route path="/cellama" element={<Cellama />} />
+					<Route path="/solutions/cellama" element={<Cellama />} />
 				</Routes>
 			</Router>
 		</>
